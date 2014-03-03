@@ -1,0 +1,21 @@
+package Map;
+
+import java.util.*;
+
+public class freq {
+
+	public static void main(String[] args){
+
+		Map<String, Integer> m = new LinkedHashMap<String, Integer>();		
+		
+		for (String a: args){
+			Integer freq = m.get(a);
+			m.put(a, (freq == null) ? 1 : freq + 1);
+		}
+		
+
+		System.out.println(m.size() + " distinct words: ");
+		System.out.println(m);
+	}
+
+}
