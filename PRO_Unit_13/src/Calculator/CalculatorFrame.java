@@ -8,13 +8,25 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.SwingConstants;
+
+import java.awt.Font;
+import java.util.Arrays;
 
 public class CalculatorFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField Result;
+	private JTextField resultado_temporal;
+	private JTextField resultado_final;
+
+	// private String reg = "\\+|\\-|\\/|\\*|\n";
+	private String reg = "((?<=[<=|>=|==|\\+|\\*|\\-|<|>|/|=])|(?=[<=|>=|==|\\+|\\*|\\-|<|>|/|=]))";
+
+	private String operacion = "";
 	private int resultado;
 	private int numero = 0;
 
@@ -45,16 +57,12 @@ public class CalculatorFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		Result = new JTextField();
-		Result.setBounds(28, 12, 408, 98);
-		contentPane.add(Result);
-		Result.setColumns(10);
-
 		final JButton btnNumber7 = new JButton("7");
 		btnNumber7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Result.setText(Result.getText().concat("7"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"7"));
 
 			}
 		});
@@ -65,7 +73,8 @@ public class CalculatorFrame extends JFrame {
 		btnNumber8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Result.setText(Result.getText().concat("8"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"8"));
 
 			}
 		});
@@ -75,7 +84,8 @@ public class CalculatorFrame extends JFrame {
 		final JButton btnNumber9 = new JButton("9");
 		btnNumber9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText().concat("9"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"9"));
 
 			}
 		});
@@ -87,8 +97,8 @@ public class CalculatorFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 
-				Result.setText(Result.getText() + "+");
-
+				resultado_temporal.setText(resultado_temporal.getText() + "+");
+				operacion = "+";
 			}
 		});
 		btnAction_plus.setBounds(298, 122, 55, 25);
@@ -97,7 +107,8 @@ public class CalculatorFrame extends JFrame {
 		final JButton btnNumber4 = new JButton("4");
 		btnNumber4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText().concat("4"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"4"));
 			}
 		});
 		btnNumber4.setBounds(97, 159, 55, 25);
@@ -106,7 +117,8 @@ public class CalculatorFrame extends JFrame {
 		final JButton btnNumber5 = new JButton("5");
 		btnNumber5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText().concat("5"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"5"));
 			}
 		});
 		btnNumber5.setBounds(164, 159, 55, 25);
@@ -115,7 +127,8 @@ public class CalculatorFrame extends JFrame {
 		final JButton btnNumber6 = new JButton("6");
 		btnNumber6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText().concat("6"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"6"));
 			}
 		});
 		btnNumber6.setBounds(231, 159, 55, 25);
@@ -124,7 +137,8 @@ public class CalculatorFrame extends JFrame {
 		JButton btnAction_Minus = new JButton("-");
 		btnAction_Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText() + "-");
+				resultado_temporal.setText(resultado_temporal.getText() + "-");
+				operacion = "-";
 			}
 		});
 		btnAction_Minus.setBounds(298, 159, 55, 25);
@@ -133,7 +147,8 @@ public class CalculatorFrame extends JFrame {
 		final JButton btnNumber1 = new JButton("1");
 		btnNumber1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText().concat("1"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"1"));
 			}
 		});
 		btnNumber1.setBounds(97, 196, 55, 25);
@@ -142,7 +157,8 @@ public class CalculatorFrame extends JFrame {
 		final JButton btnNumber2 = new JButton("2");
 		btnNumber2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText().concat("2"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"2"));
 
 			}
 		});
@@ -152,7 +168,8 @@ public class CalculatorFrame extends JFrame {
 		final JButton btnNumber3 = new JButton("3");
 		btnNumber3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText().concat("3"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"3"));
 			}
 		});
 		btnNumber3.setBounds(231, 196, 55, 25);
@@ -161,7 +178,8 @@ public class CalculatorFrame extends JFrame {
 		JButton btnAction_Multiplication = new JButton("*");
 		btnAction_Multiplication.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText() + "*");
+				resultado_temporal.setText(resultado_temporal.getText() + "*");
+				operacion = "*";
 			}
 		});
 		btnAction_Multiplication.setBounds(298, 196, 55, 25);
@@ -170,7 +188,8 @@ public class CalculatorFrame extends JFrame {
 		JButton btnNumber0 = new JButton("0");
 		btnNumber0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText().concat("0"));
+				resultado_temporal.setText(resultado_temporal.getText().concat(
+						"0"));
 			}
 		});
 		btnNumber0.setBounds(97, 233, 55, 25);
@@ -179,6 +198,31 @@ public class CalculatorFrame extends JFrame {
 		JButton btnAction_equal = new JButton("=");
 		btnAction_equal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				String[] res = resultado_temporal.getText().split(reg);
+				resultado = Integer.parseInt(res[0]);
+
+				for (int i = 1; i < res.length; i++) {
+					if (res[i].equals("+")) {
+						operacion = "+";
+						resultado+= Integer.parseInt(res[i+1]);
+					}
+					if (res[i].equals("-")) {
+						operacion = "-";
+						resultado-= Integer.parseInt(res[i+1]);
+					}
+					if (res[i].equals("*")) {
+						operacion = "*";
+						resultado*= Integer.parseInt(res[i+1]);
+					}
+					if (res[i].equals("/")) {
+						operacion = "/";
+						resultado/= Integer.parseInt(res[i+1]);
+					}
+				}
+				resultado_final.setText(Integer.toString(resultado));
+				resultado_temporal.setText("");
+				resultado = 0;
 			}
 		});
 		btnAction_equal.setBounds(164, 233, 122, 25);
@@ -187,11 +231,29 @@ public class CalculatorFrame extends JFrame {
 		JButton btnAction_div = new JButton("/");
 		btnAction_div.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Result.setText(Result.getText() + "/");
+				resultado_temporal.setText(resultado_temporal.getText() + "/");
+				operacion = "/";
 			}
 		});
 		btnAction_div.setBounds(298, 233, 55, 25);
 		contentPane.add(btnAction_div);
-	}
 
+		resultado_final = new JTextField();
+		resultado_final.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		resultado_final.setFont(new Font("Dialog", Font.BOLD, 16));
+		resultado_final.setHorizontalAlignment(SwingConstants.CENTER);
+		resultado_final.setBounds(52, 75, 344, 37);
+		contentPane.add(resultado_final);
+		resultado_final.setColumns(10);
+
+		resultado_temporal = new JTextField();
+		resultado_temporal.setHorizontalAlignment(SwingConstants.CENTER);
+		resultado_temporal.setFont(new Font("Dialog", Font.PLAIN, 14));
+		resultado_temporal.setBounds(28, 12, 408, 51);
+		contentPane.add(resultado_temporal);
+		resultado_temporal.setColumns(10);
+	}
 }
